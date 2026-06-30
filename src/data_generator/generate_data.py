@@ -1,5 +1,5 @@
-# Instalar a biblioteca Faker no ambiente virtual do cluster do Databricks
-%pip install -r ../../requirements.txt
+# Databricks notebook source
+# MAGIC %pip install -r ../../requirements.txt
 
 # src/data_generator/generate_data.py
 import os
