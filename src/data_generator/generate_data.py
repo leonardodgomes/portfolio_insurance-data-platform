@@ -138,6 +138,9 @@ def generate_enterprise_insurance_data(num_customers=25000):
 
     df_claims = pd.DataFrame(claims_list)
 
+    # CORREÇÃO CRÍTICA: Devolver os DataFrames criados para o script principal
+    return df_customers, df_policies, df_claims
+
     # ----------------------------------------------------
     # 4. SALVAGUARDAR FICHEIROS NA LANDING ZONE
     # ----------------------------------------------------
