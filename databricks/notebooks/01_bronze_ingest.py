@@ -2,7 +2,7 @@
 # MAGIC %pip install -r ../../requirements.txt
 
 # Task: [INS-103] - Ingestão de Dados Brutos para Tabelas Delta Lake Bronze
-from pyspark.sql.functions import current_timestamp, input_file_name
+from pyspark.sql.functions import current_timestamp  # Removido input_file_name
 
 # 1. DEFINIÇÃO DA INFRAESTRUTURA DO UNITY CATALOG
 VOLUME_PATH = "/Volumes/insurance_platform/bronze/insurance_landing"
@@ -28,13 +28,13 @@ def ingest_raw_csv_to_delta(entity_name):
             .option("inferSchema", "true") \
             .load(source_file)
         
-        # Adicionar colunas de auditoria obrigatórias em ambientes corporativos
+        # CORREÇÃO CRÍTICA PARA UNITY CATALOG:
+        # Substituição de input_file_name() pela coluna nativa _metadata.file_path
         df_bronze = df_raw \
             .withColumn("ingestion_timestamp", current_timestamp()) \
-            .withColumn("source_file_path", input_file_name())
+            .withColumn("source_file_path", df_raw["_metadata.file_path"])
         
-        # Gravar no formato Delta Lake (Padrão Ouro do Databricks)
-        # Usamos 'overwrite' na primeira carga para garantir que a tabela nasce limpa
+        # Gravar no formato Delta Lake
         df_bronze.write \
             .format("delta") \
             .mode("overwrite") \
