@@ -1,3 +1,6 @@
+# Instalar a biblioteca Faker no ambiente virtual do cluster do Databricks
+%pip install -r ../../requirements.txt
+
 # src/data_generator/generate_data.py
 import os
 import random
@@ -138,7 +141,7 @@ def generate_enterprise_insurance_data(num_customers=25000):
     # ----------------------------------------------------
     # 4. SALVAGUARDAR FICHEIROS NA LANDING ZONE
     # ----------------------------------------------------
-    
+
 if __name__ == "__main__":
     # Caminho profissional isolado no catálogo do projeto
     output_dir = "/Volumes/insurance_platform/bronze/insurance_landing"
