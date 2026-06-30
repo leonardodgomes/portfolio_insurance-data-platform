@@ -143,7 +143,8 @@ def generate_enterprise_insurance_data(num_customers=25000):
     # ----------------------------------------------------
 
 if __name__ == "__main__":
-    # Caminho profissional isolado no catálogo do projeto
+    # PADRÃO CORPORATIVO MODERNO: Caminho nativo POSIX direto para o Volume do Unity Catalog
+    # Sem prefixos efémeros ou antigos do DBFS
     output_dir = "/Volumes/insurance_platform/bronze/insurance_landing"
     
     import os
@@ -152,10 +153,10 @@ if __name__ == "__main__":
     # Executa a geração em massa com as regras reais do negócio de seguros
     cust, pol, clm = generate_enterprise_insurance_data(25000)
     
-    # Grava os ficheiros diretamente no novo Volume
+    # Gravar os CSVs diretamente no Volume de Produção
     cust.to_csv(f"{output_dir}/customers.csv", index=False)
     pol.to_csv(f"{output_dir}/policies.csv", index=False)
     clm.to_csv(f"{output_dir}/claims.csv", index=False)
 
-    print("\n⚡ --- PROCESSO CONCLUÍDO EM CATÁLOGO ISOLADO --- ⚡")
+    print("\n⚡ --- PROCESSO CONCLUÍDO EM CAMADA MODERN VOLUMES --- ⚡")
     print(f"Dados brutos gravados com sucesso no Volume: {output_dir}/")
