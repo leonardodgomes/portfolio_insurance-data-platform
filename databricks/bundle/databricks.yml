@@ -1,0 +1,6 @@
+bundle:
+  name: portfolio_insurance-data-platform
+
+include:
+  - ./resources.yml
+  - ./targets.yml

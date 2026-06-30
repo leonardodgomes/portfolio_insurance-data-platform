@@ -1,0 +1,6 @@
+targets:
+  # Ambiente de Desenvolvimento - Databricks Community Edition
+  dev:
+    workspace:
+      host: https://databricks.com
+    mode: development

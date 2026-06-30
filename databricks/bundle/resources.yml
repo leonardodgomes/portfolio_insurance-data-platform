@@ -1,0 +1,3 @@
+# Na versão Community, focamos apenas na sincronização de ficheiros.
+# Deixamos o ficheiro estruturado para o caso de no futuro fazer um upgrade.
+resources: {}
