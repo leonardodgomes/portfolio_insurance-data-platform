@@ -1,0 +1,65 @@
+table Calendar
+	lineageTag: cd41a841-fbde-4ee7-b80c-80de032f9fe2
+
+	column Date
+		formatString: General Date
+		lineageTag: 2f0f9a73-c201-4fa7-a6bd-11e700de1b59
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: 17a76991-4a11-4ff4-b8ea-68d5cb4a876c
+			defaultHierarchy: LocalDateTable_e6c7fc27-61ae-42eb-a8c9-40fb89bd17a4.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ano
+		formatString: 0
+		lineageTag: a89cba5f-36a9-4a42-865a-5b8064efad5c
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Ano]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mês Num'
+		formatString: 0
+		lineageTag: ec0cc975-5db1-4380-8e29-70045ce3e00f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Mês Num]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mês Nome'
+		lineageTag: 3a24a447-1e6c-4709-98c3-5544c14ecb02
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Mês Nome]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		lineageTag: 3405f752-d66f-454b-9ab3-86c1ebe686fa
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Trimestre]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendar = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS (
+				    CALENDAR(MIN(agg_insurance_monthly_kpis[gold_timestamp]) - 365, TODAY()),
+				    "Ano", YEAR([Date]),
+				    "Mês Num", MONTH([Date]),
+				    "Mês Nome", FORMAT([Date], "MMMM"),
+				    "Trimestre", "T" & FORMAT([Date], "Q")
+				)
+
+	annotation PBI_Id = 81de1ff4303248b5b6c852505c6a9bfa
+

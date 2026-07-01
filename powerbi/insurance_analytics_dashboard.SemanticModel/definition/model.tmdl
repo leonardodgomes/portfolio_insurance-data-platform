@@ -1,0 +1,24 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-PT
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["agg_insurance_monthly_kpis","_measures"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.138.782.0 (24.11)
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table agg_insurance_monthly_kpis
+ref table _measures
+ref table Calendar
+ref table DateTableTemplate_dfb024ba-f755-4f0f-a1f9-32c23c7a426d
+ref table LocalDateTable_e6c7fc27-61ae-42eb-a8c9-40fb89bd17a4
+
+ref cultureInfo en-US
+

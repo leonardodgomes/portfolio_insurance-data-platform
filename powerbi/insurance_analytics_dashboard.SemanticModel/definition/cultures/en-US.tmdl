@@ -1,0 +1,53 @@
+cultureInfo en-US
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "table_measures.total_claims_paid": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_measures",
+			          "ConceptualProperty": "Total Claims Paid"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Total Claims": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "agg_insurance_monthly_kpis.policy_type": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "agg_insurance_monthly_kpis",
+			          "ConceptualProperty": "policy_type"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Tipo de Seguro": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+

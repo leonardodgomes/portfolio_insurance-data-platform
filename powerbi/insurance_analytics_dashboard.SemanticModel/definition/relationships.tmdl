@@ -1,0 +1,5 @@
+relationship 17a76991-4a11-4ff4-b8ea-68d5cb4a876c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendar.Date
+	toColumn: LocalDateTable_e6c7fc27-61ae-42eb-a8c9-40fb89bd17a4.Date
+

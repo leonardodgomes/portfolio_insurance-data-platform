@@ -1,0 +1,9 @@
+{
+  "version": "4.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../insurance_analytics_dashboard.SemanticModel"
+    },
+    "byConnection": null
+  }
+}

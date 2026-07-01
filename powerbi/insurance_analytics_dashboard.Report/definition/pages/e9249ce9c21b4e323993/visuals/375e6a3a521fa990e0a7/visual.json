@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.4.0/schema.json",
+  "name": "375e6a3a521fa990e0a7",
+  "position": {
+    "x": 5,
+    "y": 74,
+    "z": 6000,
+    "height": 162,
+    "width": 1270,
+    "tabOrder": 8001
+  },
+  "visualGroup": {
+    "displayName": "Painel Filro",
+    "groupMode": "ScaleMode"
+  },
+  "isHidden": true
+}

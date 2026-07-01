@@ -1,0 +1,105 @@
+table agg_insurance_monthly_kpis
+	lineageTag: 51d74b6a-02fc-4ca6-ba40-6db657c4d2e5
+
+	column district
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 4841055b-62df-4cb1-8f38-b1b96d228d5f
+		summarizeBy: none
+		sourceColumn: district
+
+		annotation SummarizationSetBy = Automatic
+
+	column policy_type
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 7da01d22-9643-4b12-abe2-297512142b96
+		summarizeBy: none
+		sourceColumn: policy_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column age_group
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: e221dd66-9535-451d-ad48-994975a58907
+		summarizeBy: none
+		sourceColumn: age_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_premiums
+		dataType: double
+		formatString: #,0.00\ "€";-#,0.00\ "€";#,0.00\ "€"
+		sourceProviderType: double
+		lineageTag: 64459887-ffae-4a66-b70b-97fcdec38539
+		summarizeBy: sum
+		sourceColumn: total_premiums
+
+		annotation SummarizationSetBy = Automatic
+
+	column active_policies_count
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: e8216641-47af-4cac-b593-25a6b8cc1d9a
+		summarizeBy: sum
+		sourceColumn: active_policies_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_claims_paid
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 5632b4c0-40d0-4622-b066-3b2fadc57154
+		summarizeBy: sum
+		sourceColumn: total_claims_paid
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column approved_claims_count
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 972656d6-0e13-4209-ac42-725aef1fe3c4
+		summarizeBy: sum
+		sourceColumn: approved_claims_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column loss_ratio_pct
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 8a9e9a12-84a3-43ad-9c50-11f73344dbef
+		summarizeBy: sum
+		sourceColumn: loss_ratio_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gold_timestamp
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 8f3dabec-a873-4e37-9652-9e393cd85b2f
+		summarizeBy: none
+		sourceColumn: gold_timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	partition agg_insurance_monthly_kpis = m
+		mode: directQuery
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-f4146b33-5521.cloud.databricks.com", "/sql/1.0/warehouses/eb27e19a9b5b9c65", [Catalog=null, Database=null, EnableAutomaticProxyDiscovery=null]),
+				    insurance_platform_Database = Source{[Name="insurance_platform",Kind="Database"]}[Data],
+				    gold_Schema = insurance_platform_Database{[Name="gold",Kind="Schema"]}[Data],
+				    agg_insurance_monthly_kpis_Table = gold_Schema{[Name="agg_insurance_monthly_kpis",Kind="Table"]}[Data]
+				in
+				    agg_insurance_monthly_kpis_Table
+
+	annotation PBI_ResultType = Table
+

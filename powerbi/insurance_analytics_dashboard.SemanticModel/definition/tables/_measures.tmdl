@@ -1,0 +1,54 @@
+table _measures
+	lineageTag: 8762b6a0-23be-448a-a140-fda770146087
+
+	measure 'Total Premiums' = SUM(agg_insurance_monthly_kpis[total_premiums])
+		formatString: #,0.00\ "€";-#,0.00\ "€";#,0.00\ "€"
+		displayFolder: Faturação
+		lineageTag: b9e5c130-08da-4102-b698-89f3c7620a71
+
+	measure 'Total Claims Paid' = SUM(agg_insurance_monthly_kpis[total_claims_paid])
+		formatString: #,0.00\ "€";-#,0.00\ "€";#,0.00\ "€"
+		displayFolder: Sinistralidade
+		lineageTag: 28e73383-3f83-44c7-a839-2edeec0f6bde
+
+	measure 'Corporate Loss Ratio' = DIVIDE([Total Claims Paid], [Total Premiums], 0)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Loss Ratio
+		lineageTag: 71686ecd-3716-498c-bb7a-01f0fbb7692a
+
+	measure 'Average Premium Ticket' = DIVIDE([Total Premiums], SUM(agg_insurance_monthly_kpis[active_policies_count]), 0)
+		formatString: #,0.00\ "€";-#,0.00\ "€";#,0.00\ "€"
+		displayFolder: Faturação
+		lineageTag: 2d31fd20-10ad-4725-a9da-cedd1ef5859a
+
+	measure 'Claim Frequency Pct' = DIVIDE(SUM(agg_insurance_monthly_kpis[approved_claims_count]), SUM(agg_insurance_monthly_kpis[active_policies_count]), 0)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Sinistralidade
+		lineageTag: e049e283-ef4a-47ff-a7a5-52314c73f347
+
+	measure 'Loss Ratio Status' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    ISBLANK([Corporate Loss Ratio]), "⚪ Sem Dados",
+			    [Corporate Loss Ratio] < 0.45, "🚀 Operação Lucrativa",
+			    [Corporate Loss Ratio] >= 0.45 && [Corporate Loss Ratio] <= 0.75, "🟡 Atenção (Risco Médio)",
+			    "🔴 Alerta Crítico (Prejuízo)"
+			)
+			
+			```
+		displayFolder: Loss Ratio
+		lineageTag: 897272b3-ba08-4665-a9bf-37e90507436b
+
+	partition _measures = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
